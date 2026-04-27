@@ -97,21 +97,21 @@ function getWindDirection(deg) {
 //  FEATURE 2: DYNAMIC BACKGROUND THEMES
 // ============================================================
 const themeMap = {
-    'clear-day':            'theme-clear-day',
-    'clear-night':          'theme-clear-night',
-    'partly-cloudy-day':    'theme-partly-cloudy-day',
-    'partly-cloudy-night':  'theme-partly-cloudy-night',
-    'cloudy':               'theme-cloudy',
-    'rain':                 'theme-rain',
-    'showers-day':          'theme-rain',
-    'showers-night':        'theme-rain',
-    'thunder-rain':         'theme-rain',
-    'thunder-showers-day':  'theme-rain',
-    'thunder-showers-night':'theme-rain',
-    'snow':                 'theme-snow',
-    'sleet':                'theme-snow',
-    'fog':                  'theme-fog',
-    'wind':                 'theme-wind',
+    'clear-day': 'theme-clear-day',
+    'clear-night': 'theme-clear-night',
+    'partly-cloudy-day': 'theme-partly-cloudy-day',
+    'partly-cloudy-night': 'theme-partly-cloudy-night',
+    'cloudy': 'theme-cloudy',
+    'rain': 'theme-rain',
+    'showers-day': 'theme-rain',
+    'showers-night': 'theme-rain',
+    'thunder-rain': 'theme-rain',
+    'thunder-showers-day': 'theme-rain',
+    'thunder-showers-night': 'theme-rain',
+    'snow': 'theme-snow',
+    'sleet': 'theme-snow',
+    'fog': 'theme-fog',
+    'wind': 'theme-wind',
 };
 
 const allThemeClasses = [
@@ -139,18 +139,18 @@ function renderWeatherAnimation(iconCode) {
     animationContainer.innerHTML = '';
 
     if (iconCode === 'rain' || iconCode.includes('shower') || iconCode.includes('thunder')) {
-        // Generate rain drops
-        const count = 80;
+        // FIX #3: More visible rain drops with varied lengths
+        const count = 100;
         for (let i = 0; i < count; i++) {
             const drop = document.createElement('div');
             drop.className = 'rain-drop';
-            const height = rand(15, 40);
+            const height = rand(25, 60);
             drop.style.cssText = `
                 left: ${rand(0, 100)}%;
                 height: ${height}px;
-                animation-duration: ${rand(0.6, 1.2)}s;
+                animation-duration: ${rand(0.5, 1.0)}s;
                 animation-delay: ${rand(0, 2)}s;
-                opacity: ${rand(0.4, 0.9)};
+                opacity: ${rand(0.5, 1.0)};
             `;
             animationContainer.appendChild(drop);
         }
@@ -171,18 +171,19 @@ function renderWeatherAnimation(iconCode) {
             animationContainer.appendChild(flake);
         }
     } else if (iconCode === 'cloudy' || iconCode === 'partly-cloudy-day' || iconCode === 'partly-cloudy-night') {
-        // Generate drifting cloud blobs
-        const count = 6;
+        // FIX #2: More visible shaped clouds at different layers
+        const count = 8;
         for (let i = 0; i < count; i++) {
             const cloud = document.createElement('div');
             cloud.className = 'cloud-particle';
-            const size = rand(150, 350);
+            const size = rand(80, 200);
             cloud.style.cssText = `
-                top: ${rand(5, 60)}%;
+                top: ${rand(5, 65)}%;
                 width: ${size}px;
-                height: ${size * 0.6}px;
-                animation-duration: ${rand(25, 55)}s;
-                animation-delay: ${rand(-20, 0)}s;
+                height: ${size * 0.55}px;
+                animation-duration: ${rand(18, 45)}s;
+                animation-delay: ${rand(-30, 0)}s;
+                opacity: ${rand(0.5, 0.9)};
             `;
             animationContainer.appendChild(cloud);
         }
@@ -203,20 +204,33 @@ function renderWeatherAnimation(iconCode) {
             animationContainer.appendChild(fog);
         }
     } else if (iconCode === 'clear-day') {
-        // Sun glow rays
+        // FIX #4: Moving sun disc with orbit rings
+        const disc = document.createElement('div');
+        disc.className = 'sun-disc';
+        const discSize = 120;
+        disc.style.cssText = `
+            width: ${discSize}px;
+            height: ${discSize}px;
+            top: 40px;
+            right: 60px;
+            animation-duration: ${rand(5, 8)}s;
+        `;
+        animationContainer.appendChild(disc);
+
+        // Expanding orbit rings around the sun
         for (let i = 0; i < 3; i++) {
-            const ray = document.createElement('div');
-            ray.className = 'sun-ray';
-            const size = rand(200, 500);
-            ray.style.cssText = `
-                width: ${size}px;
-                height: ${size}px;
-                top: ${rand(-80, -20)}px;
-                right: ${rand(-80, -20)}px;
-                animation-duration: ${rand(3, 6)}s;
-                animation-delay: ${rand(0, 2)}s;
+            const ring = document.createElement('div');
+            ring.className = 'sun-ring';
+            const ringSize = discSize + 20;
+            ring.style.cssText = `
+                width: ${ringSize}px;
+                height: ${ringSize}px;
+                top: ${40 + (discSize - ringSize) / 2}px;
+                right: ${60 + (discSize - ringSize) / 2}px;
+                animation-duration: ${rand(2.5, 4)}s;
+                animation-delay: ${i * 1.0}s;
             `;
-            animationContainer.appendChild(ray);
+            animationContainer.appendChild(ring);
         }
     } else if (iconCode === 'clear-night') {
         // Twinkling stars
