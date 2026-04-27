@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Weather particle animation layer -->
+    <div id="weather-animation-container"></div>
+    <div class="app-container">
+        <header>
+            <h1>🌤️ Weather Insight</h1>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="" required autocomplete="off">
+                <button type="submit">Cari</button>
+            </form>
+        </header>
+
+        <div id="loading" class="hidden">Sedang memuat data...</div>
+        <div id="error" class="hidden"></div>
+
+        <main id="weather-content" class="hidden">
+            <section class="main-card glass-panel">
+                <div class="current-weather">
+                    <h2 id="location-name">Jakarta, Indonesia</h2>
+                    <div class="temperature-display">
+                        <span id="current-temp">28</span>°C
+                    </div>
+                    <p id="current-condition" class="condition">Cerah Berawan</p>
+                </div>
+                <div class="tomorrow-summary">
+                    <h3>Prakiraan Esok Hari</h3>
+                    <p id="tomorrow-condition">Akan turun hujan ringan di sore hari.</p>
+                </div>
+            </section>
+
+            <section class="details-grid">
+                <div class="detail-card glass-panel">
+                    <span class="detail-label">Kecepatan Angin</span>
+                    <span class="detail-value" id="wind-speed">12 km/h</span>
+                </div>
+                <div class="detail-card glass-panel">
+                    <span class="detail-label">Arah Angin</span>
+                    <span class="detail-value" id="wind-dir">Barat Laut</span>
+                </div>
+                <div class="detail-card glass-panel">
+                    <span class="detail-label">Kelembapan</span>
+                    <span class="detail-value" id="humidity">75%</span>
+                </div>
+                <div class="detail-card glass-panel">
+                    <span class="detail-label">Peluang Hujan</span>
+                    <span class="detail-value" id="precip-prob">20%</span>
+                </div>
+                <div class="detail-card glass-panel">
+                    <span class="detail-label">Tekanan Udara</span>
+                    <span class="detail-value" id="pressure">1012 hPa</span>
+                </div>
+            </section>
+
+            <section class="timeline-container glass-panel">
+                <h3>Timeline 48 Jam (24 jam sebelum & sesudah)</h3>
+                <div class="timeline" id="hourly-timeline">
+                    <!-- Hourly items will be injected here via JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
