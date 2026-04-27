@@ -1,5 +1,3 @@
-const API_KEY = "CPTSM23RD82ULQN34BDX63YQB";
-
 const form = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const loadingEl = document.getElementById('loading');
@@ -278,7 +276,7 @@ async function fetchWeatherData(location) {
     loadingEl.classList.remove('hidden');
 
     try {
-        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}/yesterday/next2days?unitGroup=metric&include=hours,days,current&key=${API_KEY}&contentType=json`;
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}/yesterday/next2days?unitGroup=metric&include=hours,days,current&key=${process.env.KEY}&contentType=json`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Gagal memuat cuaca untuk "${location}". (Mungkin kota tidak ditemukan)`);

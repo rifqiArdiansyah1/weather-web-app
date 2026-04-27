@@ -325,12 +325,12 @@ body.theme-wind {
     background: linear-gradient(160deg, #1a3a5c 0%, #2d5a7a 50%, #4a7a9b 100%);
 }
 
-/* FIX #1: Text contrast on cloudy backgrounds */
+/* FIX #1: Text contrast on cloudy backgrounds (Issue #3) */
 body.theme-cloudy,
 body.theme-partly-cloudy-day,
 body.theme-partly-cloudy-night,
 body.theme-fog {
-    --text-secondary: #e2e8f0;
+    --text-secondary: #f8fafc;
 }
 
 /* ============================================
